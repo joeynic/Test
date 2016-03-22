@@ -5,10 +5,27 @@ Begin VB.Form Form1
    ClientLeft      =   225
    ClientTop       =   870
    ClientWidth     =   4560
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    ScaleHeight     =   3015
    ScaleWidth      =   4560
    StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton F4 
+      Caption         =   "F4"
+      Height          =   255
+      Left            =   2520
+      TabIndex        =   2
+      Top             =   1320
+      Width           =   975
+   End
+   Begin VB.CommandButton F3 
+      Caption         =   "F3"
+      Height          =   255
+      Left            =   2520
+      TabIndex        =   1
+      Top             =   960
+      Width           =   975
+   End
    Begin VB.ComboBox cmbSports 
       Height          =   315
       ItemData        =   "Form1.frx":0000
@@ -41,8 +58,33 @@ Private Sub cmbSports_Click()
     MsgBox (cmbSports.ItemData(cmbSports.ListIndex))
 End Sub
 
+Private Sub F3_Click()
+    Form_KeyDown 114, 0
+End Sub
+
+Private Sub F4_Click()
+    Form_KeyDown 115, 0
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    Select Case KeyCode
+        Case 114
+            RunF3
+        Case 115
+            RunF4
+    End Select
+End Sub
+
+Private Sub RunF3()
+    MsgBox ("F3")
+End Sub
+
+Private Sub RunF4()
+    MsgBox ("F4")
+End Sub
+
 Private Sub Form_Load()
-    Dim conn As New ADODB.connection
+    Dim conn As New ADODB.Connection
     Dim rs As New ADODB.Recordset
     conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source = 'C:\Users\Joe\Documents\Work\VB6\Test\Data\VB6.accdb'"
     conn.CursorLocation = adUseClient
@@ -59,7 +101,5 @@ End Sub
 
 Private Sub mnuF1_Click()
     MsgBox ("f1")
-    Dim i As Integer
-    i = 1
 End Sub
 
