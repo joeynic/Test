@@ -13,17 +13,17 @@ Begin VB.Form Form1
    Begin VB.CommandButton F4 
       Caption         =   "F4"
       Height          =   255
-      Left            =   2520
+      Left            =   3480
       TabIndex        =   2
-      Top             =   1320
+      Top             =   360
       Width           =   975
    End
    Begin VB.CommandButton F3 
       Caption         =   "F3"
       Height          =   255
-      Left            =   2520
+      Left            =   3480
       TabIndex        =   1
-      Top             =   960
+      Top             =   0
       Width           =   975
    End
    Begin VB.ComboBox cmbSports 
@@ -86,6 +86,8 @@ Private Sub RunF4()
 End Sub
 
 Private Sub Form_Load()
+    Dim s As New Sport
+    s.SportName = "123"
     Dim conn As New ADODB.Connection
     Dim rs As New ADODB.Recordset
     conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0; Data Source = 'C:\Users\Joe\Documents\Work\VB6\Test\Data\VB6.accdb'"
