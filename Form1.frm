@@ -72,6 +72,8 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
             RunF3
         Case 115
             RunF4
+        Case Else
+            'TODO
     End Select
 End Sub
 
