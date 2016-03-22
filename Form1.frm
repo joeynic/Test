@@ -78,7 +78,7 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub RunF3()
-    MsgBox ("F33")
+    MsgBox ("F3")
 End Sub
 
 Private Sub RunF4()
