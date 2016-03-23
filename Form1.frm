@@ -10,6 +10,22 @@ Begin VB.Form Form1
    ScaleHeight     =   3015
    ScaleWidth      =   4560
    StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmdReadFile 
+      Caption         =   "Read File"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   4
+      Top             =   960
+      Width           =   1455
+   End
+   Begin VB.CommandButton cmdCreateFile 
+      Caption         =   "Create File"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   3
+      Top             =   480
+      Width           =   1455
+   End
    Begin VB.CommandButton F4 
       Caption         =   "F4"
       Height          =   255
@@ -58,6 +74,35 @@ Private Sub cmbSports_Click()
     MsgBox (cmbSports.ItemData(cmbSports.ListIndex))
 End Sub
 
+Private Sub cmdCreateFile_Click()
+    Dim intMsg As String
+    Dim StudentName As String
+    
+    Open "C:\Users\Joe\Documents\Work\VB6\Test\Data\sample.txt" For Output As #1
+    intMsg = MsgBox("File sample.txt opened")
+    StudentName = InputBox("Enter the student Name")
+    Print #1, StudentName
+    intMsg = MsgBox("Writing a " & StudentName & " to sample.txt")
+    
+    Close #1
+    intMsg = MsgBox("File sample.txt closed")
+End Sub
+
+Private Sub cmdReadFile_Click()
+    On Error GoTo error_handler
+    
+    Dim variable1 As String
+    Open "C:\Users\Joe\Documents\Work\VB6\Test\Data\sample.txt" For Input As #1
+    Input #1, variable1
+    Close #1
+    MsgBox (variable1)
+    
+    Exit Sub
+error_handler:
+    MsgBox ("Error")
+    MsgBox (Err.Description)
+End Sub
+
 Private Sub F3_Click()
     Form_KeyDown 114, 0
 End Sub
@@ -96,11 +141,23 @@ Private Sub Form_Load()
     
     rs.Open "GetSports", conn, adOpenForwardOnly, adLockOptimistic
     
-    Do While Not rs.EOF
-        cmbSports.AddItem rs("sportName")
-        cmbSports.ItemData(cmbSports.NewIndex) = rs("sportId")
-        rs.MoveNext
-    Loop
+    Dim arr
+    If Not rs.BOF And Not rs.EOF Then
+        arr = rs.GetRows
+    End If
+    rs.Close
+    Set rs = Nothing
+    
+    Dim i As Integer
+    For i = 0 To UBound(arr, 2)
+        cmbSports.AddItem arr(1, i)
+    Next
+    
+'    Do While Not rs.EOF
+'        cmbSports.AddItem rs("sportName")
+'        cmbSports.ItemData(cmbSports.NewIndex) = rs("sportId")
+'        rs.MoveNext
+'    Loop
 End Sub
 
 Private Sub mnuF1_Click()
